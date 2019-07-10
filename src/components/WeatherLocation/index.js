@@ -1,11 +1,11 @@
 import React from 'react';
 import Location from "./Location";
-import WeatherData from "./WeatherData ";
+import WeatherData from "./WeatherData";
 
 const WeatherLocation = () => (
     <div>
-        <Location city={"Buenos Aires"}></Location>
-        <WeatherData></WeatherData>
+        <Location city={"Barcelona"}></Location>
+        <WeatherData/>
     </div>
 );
 
