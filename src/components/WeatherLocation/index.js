@@ -9,50 +9,34 @@ import {
 import {api_weather} from "../../constants/api_url";
 
 
-
-
-const data = {
-    temperature: 6,
-    weatherState: SUN,
-    humidity: 10,
-    wind: '10 m/s',
-}
-
 class WeatherLocation extends Component {
 
     constructor() {
         super();
         this.state = {
             city: "Buenos Aires",
-            data: data,
+            data: null,
         };
         console.log("constructor");
     }
 
     componentDidMount() {
         console.log("componentDidMount");
+        this.handlerUpdateClick();
     }
 
     componentDidUpdate(prevProps, prevState) {
         console.log("componentDidUpdate");
     }
 
-    componentWillMount() {
-        console.log("UNSAFE componentWillMount");
-    }
-
-    componentWillUpdate(nextProps, nextState) {
-        console.log("UNSAFE componentWillUpdate");
-    }
-
-
     handlerUpdateClick = () => {
         fetch(api_weather).then(resolve => {
             return resolve.json();
         }).then(data => {
+            console.log("Resultado del handlerUpdateClick");
             const newWeather = tranformWeather(data);
             console.log(newWeather);
-        debugger;
+            // debugger;
             this.setState({
                 data: newWeather
             });
@@ -66,8 +50,10 @@ class WeatherLocation extends Component {
         return (
             <div className="weatherLocationCont">
                 <Location city={city}></Location>
-                <WeatherData data={data}/>
-                <button onClick={this.handlerUpdateClick}>Actualizar</button>
+                {data ?
+                    <WeatherData data={data}/> :
+                    "Cargando..."
+                }
             </div>
         );
     }
